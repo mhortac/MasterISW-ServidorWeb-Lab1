@@ -8,11 +8,8 @@ class Service
 
     public function __construct()
     {
+        $this->db = Database::connection();
         $this->servicio = array();
-        // to connect in local
-        //$this->db = new mysqli("localhost", "root", "", "test");
-        // to connect with docker
-        $this->db = new mysqli("db", "root", "example", "test");
     }
 
     private function setNames()
@@ -33,7 +30,8 @@ class Service
         $this->db = null;
     }
 
-    public function setServicio($cliente, $nombre, $fecha_inicio, $ppto_horas, $clave_id, $descripcion, $fecha_fin, $fecha_fin_real, $nom_contacto, $equipo)
+
+    public function create_old($cliente, $nombre, $fecha_inicio, $ppto_horas, $clave_id, $descripcion, $fecha_fin, $fecha_fin_real, $nom_contacto, $equipo)
     {
 
         self::setNames();
@@ -49,11 +47,12 @@ class Service
         }
     }
 
-    public function deleteServicio($id)
+    public function create($cliente, $nombre, $fecha_inicio, $ppto_horas, $clave_id, $descripcion, $fecha_fin, $fecha_fin_real, $nom_contacto, $equipo)
     {
 
         self::setNames();
-        $sql = "DELETE FROM servicios WHERE id = $id";
+
+        $sql = "INSERT INTO servicios(cliente, nombre, fecha_inicio, ppto_horas, clave_id, descripcion, fecha_fin, fecha_fin_real, nom_contacto, equipo) VALUES (?,?,?,?,?,?,?,?,?,?)";
         $result = $this->db->query($sql);
 
         if ($result) {
@@ -61,5 +60,73 @@ class Service
         } else {
             return false;
         }
+    }
+
+    /**
+     * Permite actualizar un registro de acuerdo a los parámetro.
+     */
+    public function update($id, $cliente, $nombre, $fecha_inicio, $ppto_horas, $clave_id, $descripcion, $fecha_fin, $fecha_fin_real, $nom_contacto, $equipo)
+    {
+
+        // créa una sentencia preparada
+        $statement = $this->db->prepare("UPDATE servicios SET cliente=?, nombre=?, fecha_inicio=?, ppto_horas=?, clave_id=?, descripcion=?, fecha_fin=?, fecha_fin_real=?, nom_contacto=?, equipo=? WHERE id = ?");
+        // Tipos de parámetros
+        $paramType = "ssssisssssi";
+        // ligar parámetros para marcadores
+        $statement->bind_param($paramType, $cliente, $nombre, $fecha_inicio, $ppto_horas, $clave_id, $descripcion, $fecha_fin, $fecha_fin_real, $nom_contacto, $equipo, $id);
+        // Ejecuta la consulta
+        $statement->execute();
+        // Cerrar sentencia
+        $statement->close();
+        // Cerrar conexión
+        $this->db->close();
+        // Devuelve resultado
+        return true;
+    }
+
+    /**
+     * Permite eliminar un registro de acuerdo al `id` recibido por parámetro.
+     */
+    public function delete($id)
+    {
+        // créa una sentencia preparada
+        $statement = $this->db->prepare("DELETE FROM servicios WHERE id = ?");
+        // ligar parámetros para marcadores
+        $statement->bind_param("s", $id);
+        // Ejecuta la consulta
+        $statement->execute();
+        // Obtiene el resultado de la sentencia
+        $result = $statement->get_result();
+        // Obtiene un array asociativo
+        $result = $result->fetch_assoc();
+        // Cerrar sentencia
+        $statement->close();
+        // Cerrar conexión
+        $this->db->close();
+        // Devuelve resultado
+        return $result;
+    }
+
+    /**
+     * Permite obtener un registro de acuerdo al `id` recibido por parámetro.
+     */
+    public function read($id)
+    {
+        // créa una sentencia preparada
+        $statement = $this->db->prepare("SELECT * FROM servicios WHERE id = ?");
+        // ligar parámetros para marcadores
+        $statement->bind_param("s", $id);
+        // Ejecuta la consulta
+        $statement->execute();
+        // Obtiene el resultado de la sentencia
+        $result = $statement->get_result();
+        // Obtiene un array asociativo
+        $result = $result->fetch_assoc();
+        // Cerrar sentencia
+        $statement->close();
+        // Cerrar conexión
+        $this->db->close();
+        // Devuelve resultado
+        return $result;
     }
 }
