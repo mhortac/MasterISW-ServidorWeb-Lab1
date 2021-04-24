@@ -51,27 +51,10 @@ class Service
     {
 
         self::setNames();
-
-        $sql = "INSERT INTO servicios(cliente, nombre, fecha_inicio, ppto_horas, clave_id, descripcion, fecha_fin, fecha_fin_real, nom_contacto, equipo) VALUES (?,?,?,?,?,?,?,?,?,?)";
-        $result = $this->db->query($sql);
-
-        if ($result) {
-            return true;
-        } else {
-            return false;
-        }
-    }
-
-    /**
-     * Permite actualizar un registro de acuerdo a los parámetro.
-     */
-    public function update($id, $cliente, $nombre, $fecha_inicio, $ppto_horas, $clave_id, $descripcion, $fecha_fin, $fecha_fin_real, $nom_contacto, $equipo)
-    {
-
-        // créa una sentencia preparada
-        $statement = $this->db->prepare("UPDATE servicios SET cliente=?, nombre=?, fecha_inicio=?, ppto_horas=?, clave_id=?, descripcion=?, fecha_fin=?, fecha_fin_real=?, nom_contacto=?, equipo=? WHERE id = ?");
+        // crea una sentencia preparada
+        $statement = $this->db->prepare("INSERT INTO servicios(cliente, nombre, fecha_inicio, ppto_horas, clave_id, descripcion, fecha_fin, fecha_fin_real, nom_contacto, equipo) VALUES (?,?,?,?,?,?,?,?,?,?)");
         // Tipos de parámetros
-        $paramType = "ssssisssssi";
+        $paramType = "sssissssssi";
         // ligar parámetros para marcadores
         $statement->bind_param($paramType, $cliente, $nombre, $fecha_inicio, $ppto_horas, $clave_id, $descripcion, $fecha_fin, $fecha_fin_real, $nom_contacto, $equipo, $id);
         // Ejecuta la consulta
@@ -80,8 +63,26 @@ class Service
         $statement->close();
         // Cerrar conexión
         $this->db->close();
-        // Devuelve resultado
-        return true;
+    }
+
+    /**
+     * Permite actualizar un registro de acuerdo a los parámetro.
+     */
+    public function update($id, $cliente, $nombre, $fecha_inicio, $ppto_horas, $clave_id, $descripcion, $fecha_fin, $fecha_fin_real, $nom_contacto, $equipo)
+    {
+        // crea una sentencia preparada
+        $statement = $this->db->prepare("UPDATE servicios SET cliente=?, nombre=?, fecha_inicio=?, ppto_horas=?, clave_id=?, descripcion=?, fecha_fin=?, fecha_fin_real=?, nom_contacto=?, equipo=? WHERE id = ?");
+        echo $statement->get_result();
+        // Tipos de parámetros
+        $paramType = "sssissssssi";
+        // ligar parámetros para marcadores
+        $statement->bind_param($paramType, $cliente, $nombre, $fecha_inicio, $ppto_horas, $clave_id, $descripcion, $fecha_fin, $fecha_fin_real, $nom_contacto, $equipo, $id);
+        // Ejecuta la consulta
+        $statement->execute();
+        // Cerrar sentencia
+        $statement->close();
+        // Cerrar conexión
+        $this->db->close();
     }
 
     /**

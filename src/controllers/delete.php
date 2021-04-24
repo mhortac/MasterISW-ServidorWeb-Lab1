@@ -8,3 +8,6 @@ require_once("../models/modelo.php");
 $id = $_GET["id"];
 $services = new Service();
 $services->delete($id);
+header("Location: ../index.php");
+?>
+<br>

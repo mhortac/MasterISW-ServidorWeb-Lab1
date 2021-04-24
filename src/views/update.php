@@ -14,7 +14,7 @@ $data = $services->read($id);
 ?>
 
 
-<form class="border p-3 my-5 form outline-shadow w-50 m-auto" autocomplete="off" name="../controller.php?id=<?php echo $id ?>" method="POST">
+<form class="border p-3 my-5 form outline-shadow w-50 m-auto" autocomplete="off" action="../controllers/update.php?id=<?php echo $id ?>" method="POST">
     <h2>Actualizar servicios</h2>
     <h4><small>Datos del Servicio</small></h4>
     <div class="row">
@@ -47,7 +47,7 @@ $data = $services->read($id);
             </div>
             <div class="form-group">
                 <label for="validarNombre">Descripción:<span class="red">*</span></label>
-                <textarea class="form-control" id="descripcion" name="descripcion" rows="1" cols="50" required value="<?php echo $data['descripcion'] ?>"></textarea>
+                <textarea class="form-control" id="descripcion" name="descripcion" rows="1" cols="50" required"><?php echo $data['descripcion'] ?></textarea>
             </div>
             <div class="form-group">
                 <label for="validarNombre">Fecha Fin (planeada):<span class="red">*</span></label>
@@ -65,13 +65,13 @@ $data = $services->read($id);
         <div class="col-sm-6">
             <div class="form-group">
                 <label for="validarNombre">Nombre:<span class="red">*</span></label>
-                <input type="text" class="form-control" id="nom_contacto" name="nom_contacto" tabindex="9" required="">
+                <input type="text" class="form-control" id="nom_contacto" name="nom_contacto" tabindex="9" required value="<?php echo $data['nom_contacto'] ?>">
             </div>
         </div>
         <div class="col-sm-6">
             <div class="form-group">
                 <label for="validarNombre">Equipo de trabajo:<span class="red">*</span></label>
-                <select class="custom-select" id="equipo" name="equipo">
+                <select class="custom-select" id="equipo" name="equipo" value="<?php echo $data['equipo'] ?>">
                     <option value="Alicante">Alicante</option>
                     <option value="Barcelona">Barcelona</option>
                     <option value="Madrid">Madrid</option>
@@ -84,7 +84,7 @@ $data = $services->read($id);
     <div class="error" id="error"></div>
     <br>
     <button class="btn btn-success" type="submit"> Enviar </button>
-    <a class="btn btn-outline-danger" href="../controllers/controlador.php"> Cancelar</a>
+    <a class="btn btn-outline-danger" href="../index.php"> Cancelar</a>
 </form>
 
 <?php include_once "footer.php"; ?>

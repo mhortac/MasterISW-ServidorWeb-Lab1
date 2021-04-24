@@ -1,19 +1,27 @@
 <?php include_once "header.php"; ?>
 
-<div class="my-5 outline-shadow">
-    <table class="table table-borderless">
+<div class="row justify-content-end">
+    <div class="col-auto me-auto">
+        <h4>Listado de Servicios</h4>
+    </div>
+    <div class="col-auto">
+        <a class="btn btn-primary" href="../views/create.php"><i class="fa fa-add"></i>Nuevo Servicio</a>
+    </div>
+</div>
+<div class="my-3 outline-shadow table-responsive">
+    <table class="table table-striped table-hover">
         <thead>
             <tr>
                 <th scope="col"> Servicio </th>
                 <th scope="col"> Cliente </th>
                 <th scope="col"> Id Cliente </th>
                 <th scope="col"> Descripción </th>
-                <th scope="col"> Fecha inicio </th>
-                <th scope="col"> Fecha fin (planeada) </th>
+                <th scope="col"> F. Inicio </th>
+                <th scope="col"> F. Fin (planeada) </th>
                 <th scope="col"> Ppto horas </th>
-                <th scope="col"> Fecha fin (real) </th>
-                <th scope="col"> Nom contacto </th>
-                <th scope="col"> Equipo de trabajo </th>
+                <th scope="col"> F. Fin (real) </th>
+                <th scope="col"> Contacto </th>
+                <th scope="col"> Equipo </th>
                 <td></td>
                 <td></td>
             </tr>

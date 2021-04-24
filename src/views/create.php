@@ -1,7 +1,5 @@
 <?php include_once "header.php"; ?>
-<h1>Actualizar servicios</h1>
-
-<form class="border p-3 my-5 form outline-shadow w-50 m-auto" autocomplete="off" name="formulario" method="POST">
+<form class="border p-3 my-5 form outline-shadow w-50 m-auto" action="../controllers/create.php" autocomplete="off" name="formulario" method="POST">
 
     <h1><small>Datos del Servicio</small></h1>
     <div class="row">
@@ -70,7 +68,9 @@
 
     <div class="error" id="error"></div>
 
-    <button class="btn btn-primary" type="submit"> Enviar </button>
+    <br>
+    <button class="btn btn-success" type="submit"> Enviar </button>
+    <a class="btn btn-outline-danger" href="../index.php"> Cancelar</a>
 </form>
 
 <?php include_once "footer.php"; ?>
