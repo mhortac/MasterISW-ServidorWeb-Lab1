@@ -17,7 +17,7 @@ if (
 ) {
     $service = new Service();
 
-    $service->update(
+    $service->create(
         $_POST['cliente'],
         $_POST['nombre'],
         $_POST['fecha_inicio'],
@@ -27,12 +27,10 @@ if (
         $_POST['fecha_fin'],
         $_POST['fecha_fin_real'],
         $_POST['nom_contacto'],
-        $_POST['equipo'],
-        $_GET["id"]
+        $_POST['equipo']
     );
 }
 header("Location: ../index.php");
 
-//header("Location: ../index.php");
 ?>
 <br>

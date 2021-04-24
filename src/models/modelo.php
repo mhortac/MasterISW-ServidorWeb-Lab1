@@ -19,7 +19,6 @@ class Service
 
     public function getServicios()
     {
-
         self::setNames();
         $sql = "SELECT * FROM servicios";
         foreach ($this->db->query($sql) as $res) {
@@ -30,33 +29,17 @@ class Service
         $this->db = null;
     }
 
-
-    public function create_old($cliente, $nombre, $fecha_inicio, $ppto_horas, $clave_id, $descripcion, $fecha_fin, $fecha_fin_real, $nom_contacto, $equipo)
-    {
-
-        self::setNames();
-
-        $sql = "INSERT INTO servicios(cliente, nombre, fecha_inicio, ppto_horas, clave_id, descripcion, fecha_fin, fecha_fin_real, nom_contacto, equipo) 
-                VALUES ('" . $cliente . "', '" . $nombre . "', '" . $fecha_inicio . "', '" . $ppto_horas . "', '" . $clave_id . "', '" . $descripcion . "', '" . $fecha_fin . "', '" . $fecha_fin_real . "', '" . $nom_contacto . "', '" . $equipo . "')";
-        $result = $this->db->query($sql);
-
-        if ($result) {
-            return true;
-        } else {
-            return false;
-        }
-    }
-
+    /**
+     * Permite crear un nuevo registro en base de datos.
+     */
     public function create($cliente, $nombre, $fecha_inicio, $ppto_horas, $clave_id, $descripcion, $fecha_fin, $fecha_fin_real, $nom_contacto, $equipo)
     {
-
-        self::setNames();
-        // crea una sentencia preparada
-        $statement = $this->db->prepare("INSERT INTO servicios(cliente, nombre, fecha_inicio, ppto_horas, clave_id, descripcion, fecha_fin, fecha_fin_real, nom_contacto, equipo) VALUES (?,?,?,?,?,?,?,?,?,?)");
+        // Crea una sentencia preparada
+        $statement = $this->db->prepare("INSERT INTO servicios (cliente, nombre, fecha_inicio, ppto_horas, clave_id, descripcion, fecha_fin, fecha_fin_real, nom_contacto, equipo) VALUES (?,?,?,?,?,?,?,?,?,?)");
         // Tipos de parámetros
-        $paramType = "sssissssssi";
+        $paramType = "sssissssss";
         // ligar parámetros para marcadores
-        $statement->bind_param($paramType, $cliente, $nombre, $fecha_inicio, $ppto_horas, $clave_id, $descripcion, $fecha_fin, $fecha_fin_real, $nom_contacto, $equipo, $id);
+        $statement->bind_param($paramType, $cliente, $nombre, $fecha_inicio, $ppto_horas, $clave_id, $descripcion, $fecha_fin, $fecha_fin_real, $nom_contacto, $equipo);
         // Ejecuta la consulta
         $statement->execute();
         // Cerrar sentencia
@@ -71,8 +54,7 @@ class Service
     public function update($id, $cliente, $nombre, $fecha_inicio, $ppto_horas, $clave_id, $descripcion, $fecha_fin, $fecha_fin_real, $nom_contacto, $equipo)
     {
         // crea una sentencia preparada
-        $statement = $this->db->prepare("UPDATE servicios SET cliente=?, nombre=?, fecha_inicio=?, ppto_horas=?, clave_id=?, descripcion=?, fecha_fin=?, fecha_fin_real=?, nom_contacto=?, equipo=? WHERE id = ?");
-        echo $statement->get_result();
+        $statement = $this->db->prepare("UPDATE servicios SET cliente=?, nombre=?, fecha_inicio=?, ppto_horas=?, clave_id=?, descripcion=?, fecha_fin=?, fecha_fin_real=?, nom_contacto=?, equipo=? WHERE id =?");
         // Tipos de parámetros
         $paramType = "sssissssssi";
         // ligar parámetros para marcadores
@@ -90,22 +72,16 @@ class Service
      */
     public function delete($id)
     {
-        // créa una sentencia preparada
+        // Crea una sentencia preparada
         $statement = $this->db->prepare("DELETE FROM servicios WHERE id = ?");
         // ligar parámetros para marcadores
         $statement->bind_param("s", $id);
         // Ejecuta la consulta
         $statement->execute();
-        // Obtiene el resultado de la sentencia
-        $result = $statement->get_result();
-        // Obtiene un array asociativo
-        $result = $result->fetch_assoc();
         // Cerrar sentencia
         $statement->close();
         // Cerrar conexión
         $this->db->close();
-        // Devuelve resultado
-        return $result;
     }
 
     /**
@@ -113,7 +89,7 @@ class Service
      */
     public function read($id)
     {
-        // créa una sentencia preparada
+        // Crea una sentencia preparada
         $statement = $this->db->prepare("SELECT * FROM servicios WHERE id = ?");
         // ligar parámetros para marcadores
         $statement->bind_param("s", $id);

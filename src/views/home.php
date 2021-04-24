@@ -42,7 +42,7 @@
                     <td><?php echo $datos[$i]["nom_contacto"]; ?></td>
                     <td><?php echo $datos[$i]["equipo"]; ?></td>
                     <td><a class="btn btn-outline-primary" href="../views/update.php?id=<?php echo $datos[$i]["id"] ?>"><i class="fa fa-edit"></i></a></td>
-                    <td><a class="btn btn-outline-danger" href="delete.php?id=<?php echo $datos[$i]["id"] ?>"><i class="fa fa-trash"></i></a></td>
+                    <td><a class="btn btn-outline-danger" href="../controllers/delete.php?id=<?php echo $datos[$i]["id"] ?>"><i class="fa fa-trash"></i></a></td>
 
                 </tr>
             <?php
