@@ -1,7 +1,9 @@
 <?php
+// Se importa la clase Database para utilizarla en el modelo
 require_once("../database/db.php");
+// Se importa el modelo
 require_once("../models/modelo.php");
-
+// Teniendo en cuenta que los campos son requeridos, se valida que el contenido sea distinto de vacío
 if (
     (isset($_POST['cliente'])) && ($_POST['cliente'] != '') &&
     (isset($_POST['nombre'])) && ($_POST['nombre'] != '') &&
@@ -14,9 +16,10 @@ if (
     (isset($_POST['nom_contacto'])) && ($_POST['nom_contacto'] != '') &&
     (isset($_POST['equipo'])) && ($_POST['equipo'] != '')
 ) {
-    $service = new Service();
-
-    $service->update(
+    // Creamos una instancia del Service
+    $services = new Service();
+    // Actualizamos el registro en base de datos de acuerdo a los parámetros
+    $services->update(
         $_POST['cliente'],
         $_POST['nombre'],
         $_POST['fecha_inicio'],
@@ -30,7 +33,7 @@ if (
         $_GET['id']
     );
 }
-
+// Se re-direcciona a la vista principal
 header("Location: ../index.php");
 ?>
 <br>

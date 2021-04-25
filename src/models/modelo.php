@@ -1,30 +1,34 @@
 <?php
 
+/**
+ * Service es una clase que contiene el modelo de datos y  realiza las transacciones de base de datos.
+ */
 class Service
 {
 
     private $servicio;
     private $db;
-
+    /**
+     * Constructor
+     */
     public function __construct()
     {
         $this->db = Database::connection();
         $this->servicio = array();
     }
 
-    private function setNames()
-    {
-        return $this->db->query("SET NAMES 'utf8'");
-    }
-
+    /**
+     * Permite listar todos los servicios en base de datos.
+     */
     public function getServicios()
     {
-        self::setNames();
-        $sql = "SELECT * FROM servicios";
-        foreach ($this->db->query($sql) as $res) {
+        // Realiza una consulta a la base de datos 
+        $query = $this->db->query("SELECT * FROM servicios");
+        // Iteración de la respuesta para poblar el array a mostrar
+        foreach ($query as $res) {
             $this->servicio[] = $res;
         }
-
+        // Retorna el servicio
         return $this->servicio;
         $this->db = null;
     }

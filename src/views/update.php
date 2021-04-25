@@ -1,16 +1,17 @@
 <?php
 include_once "header.php";
+// Se valida el identificador del registro a consultar
 if (!isset($_GET["id"])) {
-    exit("No hay id");
+    exit("Un error inesperado ha ocurrido. Inténtelo nuevamente.");
 }
-
-require_once("../models/modelo.php");
+// Se importa la clase Database para utilizarla en el modelo
 require_once("../database/db.php");
-
-$id = $_GET["id"];
+// Se importa el modelo
+require_once("../models/modelo.php");
+// Se crea una nueva instancia de la clase servicio
 $services = new Service();
-$data = $services->read($id);
-
+// Obtienes los datos de un servicio en particular de acuerdo al id en base de datos
+$data = $services->read($_GET["id"]);
 ?>
 
 
