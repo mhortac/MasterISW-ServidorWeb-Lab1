@@ -58,13 +58,15 @@ class Service
     public function update($id, $cliente, $nombre, $fecha_inicio, $ppto_horas, $clave_id, $descripcion, $fecha_fin, $fecha_fin_real, $nom_contacto, $equipo)
     {
         // crea una sentencia preparada
-        $statement = $this->db->prepare("UPDATE servicios SET cliente=?, nombre=?, fecha_inicio=?, ppto_horas=?, clave_id=?, descripcion=?, fecha_fin=?, fecha_fin_real=?, nom_contacto=?, equipo=? WHERE id =?");
+        $statement = $this->db->prepare("UPDATE servicios SET cliente = ?, nombre = ?, fecha_inicio = ?, ppto_horas = ?, clave_id = ?, descripcion = ?, fecha_fin = ?, fecha_fin_real = ?, nom_contacto = ?, equipo = ? WHERE id = ?;");
         // Tipos de parámetros
-        $paramType = "sssissssssi";
+        $paramType = "sssssssssss";
         // ligar parámetros para marcadores
         $statement->bind_param($paramType, $cliente, $nombre, $fecha_inicio, $ppto_horas, $clave_id, $descripcion, $fecha_fin, $fecha_fin_real, $nom_contacto, $equipo, $id);
         // Ejecuta la consulta
         $statement->execute();
+        // Obtiene el resultado de la sentencia
+        $statement->get_result();
         // Cerrar sentencia
         $statement->close();
         // Cerrar conexión

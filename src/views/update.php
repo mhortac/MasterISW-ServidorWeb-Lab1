@@ -9,13 +9,13 @@ require_once("../database/db.php");
 // Se importa el modelo
 require_once("../models/modelo.php");
 // Se crea una nueva instancia de la clase servicio
-$services = new Service();
+$service = new Service();
 // Obtienes los datos de un servicio en particular de acuerdo al id en base de datos
-$data = $services->read($_GET["id"]);
+$data = $service->read($_GET["id"]);
 ?>
 
 
-<form class="border p-3 my-5 form outline-shadow w-50 m-auto" autocomplete="off" action="../controllers/update.php?id=<?php echo $id ?>" method="POST">
+<form class="border p-3 my-5 form outline-shadow w-50 m-auto" autocomplete="off" action="../controllers/update.php?id=<?php echo $_GET["id"] ?>" method="POST">
     <h2>Actualizar servicios</h2>
     <h4><small>Datos del Servicio</small></h4>
     <div class="row">

@@ -3,6 +3,7 @@
 require_once("../database/db.php");
 // Se importa el modelo
 require_once("../models/modelo.php");
+
 // Teniendo en cuenta que los campos son requeridos, se valida que el contenido sea distinto de vacío
 if (
     (isset($_POST['cliente'])) && ($_POST['cliente'] != '') &&
@@ -17,9 +18,9 @@ if (
     (isset($_POST['equipo'])) && ($_POST['equipo'] != '')
 ) {
     // Creamos una instancia del Service
-    $services = new Service();
+    $service = new Service();
     // Actualizamos el registro en base de datos de acuerdo a los parámetros
-    $services->update(
+    $service->update(
         $_POST['cliente'],
         $_POST['nombre'],
         $_POST['fecha_inicio'],
